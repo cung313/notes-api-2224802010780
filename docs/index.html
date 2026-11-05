@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>LAB 1 - Hello Cloud - TDMU</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f6fc;
+      color: #233047;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #123d81, #368ee0);
+      color: white;
+      text-align: center;
+      padding: 45px 20px;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
+
+    section {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 18px #00000010;
+    }
+
+    h2 { color: #1656a4; }
+
+    .table-wrap { overflow-x: auto; }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #d6e1f0;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th { background: #e6f0ff; }
+
+    .nist {
+      background: #eff6ff;
+      border-left: 4px solid #2b78d0;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+
+    .note {
+      background: #fff8e6;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>LAB 1 - HELLO CLOUD</h1>
+  <p>Lập trình trên máy ảo đám mây đầu tiên</p>
+  <p>Cloud Computing - LING042 - TDMU</p>
+</header>
+
+<main>
+  <section>
+    <h2>1. Thông tin sinh viên</h2>
+    <p><b>Họ và tên:</b> Nguyễn Thanh Cung</p>
+    <p><b>MSSV:</b> 2224802010780</p>
+    <p><b>Lớp:</b> D22CNTT02</p>
+    <p><b>Ngày thực hiện:</b> 05/11/2026</p>
+  </section>
+
+  <section>
+    <h2>2. Kết quả xây dựng API</h2>
+
+    <p>Ứng dụng Hello Cloud API được xây dựng bằng
+       Node.js 22 và Express trên GitHub Codespaces.</p>
+
+    <p>
+      <b>Repository:</b>
+      <a href="https://github.com/cung313/notes-api-2224802010780">
+        Xem mã nguồn GitHub
+      </a>
+    </p>
+
+    <p><b>Endpoint:</b> GET /</p>
+    <p><b>Kết quả kiểm tra:</b>
+       API trả JSON chứa đầy đủ host, platform,
+       cpus, memoryGB, uptimeSec và time.</p>
+
+    <p><b>Host ghi nhận:</b> codespaces-f03dd4</p>
+    <p><b>CPU API:</b> 2</p>
+    <p><b>RAM API:</b> 7,8 GB</p>
+
+    <p class="note">
+      URL chuyển tiếp cổng Codespaces chỉ dùng để
+      thử nghiệm. Khi hoàn thành, cổng 3000 được
+      chuyển về Private theo yêu cầu bài thực hành.
+      Chỉ ghi nhận đã kiểm tra trên điện thoại nếu
+      thực sự hoàn thành phép thử đó.
+    </p>
+  </section>
+
+  <section>
+    <h2>3. Bảng so sánh môi trường</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tiêu chí</th>
+            <th>Máy cá nhân</th>
+            <th>GitHub Codespaces</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Thời gian từ lúc bắt đầu đến khi node -v chạy được</td>
+            <td>Chưa đo</td>
+            <td>Chưa đo</td>
+          </tr>
+
+          <tr>
+            <td>CPU</td>
+            <td>
+              Intel Core i5-10300H,
+              4 lõi / 8 luồng
+            </td>
+            <td>2 CPU logic theo API</td>
+          </tr>
+
+          <tr>
+            <td>RAM</td>
+            <td>8 GB</td>
+            <td>7,8 GB theo API</td>
+          </tr>
+
+          <tr>
+            <td>Hệ điều hành</td>
+            <td>Windows 11</td>
+            <td>Linux 6.8.0-1064-azure</td>
+          </tr>
+
+          <tr>
+            <td>Truy cập từ thiết bị khác</td>
+            <td>
+              Cần cấu hình mạng và cho phép truy cập
+              đến dịch vụ trên máy cá nhân
+            </td>
+            <td>
+              Chuyển tiếp port 3000 qua URL HTTPS
+              của GitHub Codespaces
+            </td>
+          </tr>
+
+          <tr>
+            <td>Chi phí và đo lường</td>
+            <td>
+              Chi phí phần cứng, điện năng
+              và kết nối Internet
+            </td>
+            <td>
+              GitHub Billing Usage:
+              1,14 giờ máy 2-core,
+              tương đương 2,28 core-giờ.
+              Gross: 0,21 USD;
+              billed: 0,00 USD.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note">
+      CPU và RAM được đọc từ API sử dụng module os
+      của Node.js; các giá trị có thể phản ánh
+      môi trường host hoặc container, không nhất
+      thiết tương ứng với giới hạn tài nguyên.
+      Số liệu Billing được ghi nhận ngày 05/11/2026.
+    </p>
+  </section>
+
+  <section>
+    <h2>4. Năm đặc tính điện toán đám mây theo NIST</h2>
+
+    <div class="nist">
+      <b>1. On-demand self-service:</b>
+      Sinh viên tự tạo Codespace bằng chức năng
+      Create codespace, không cần người quản trị
+      cấp máy thủ công.
+    </div>
+
+    <div class="nist">
+      <b>2. Broad network access:</b>
+      API có thể truy cập qua Internet bằng URL HTTPS
+      được GitHub chuyển tiếp từ port 3000.
+      CÓ thể truy cập bằng điện thoại qua trình duyệt.
+    </div>
+
+    <div class="nist">
+      <b>3. Resource pooling:</b>
+      Codespaces được cấp phát từ hạ tầng điện toán
+      do GitHub quản lý và phân bổ cho nhiều người dùng.
+    </div>
+
+    <div class="nist">
+      <b>4. Rapid elasticity:</b>
+      Người sử dụng có thể lựa chọn hoặc thay đổi
+      loại máy Codespace theo cấu hình và hạn mức
+      được hỗ trợ. Bài thực hành chưa đo tự động
+      mở rộng tài nguyên.
+    </div>
+
+    <div class="nist">
+      <b>5. Measured service:</b>
+      GitHub Billing Usage ghi nhận 1,14 giờ sử dụng
+      máy 2-core, tương đương 2,28 core-giờ,
+      với số tiền billed tại thời điểm đo bằng 0 USD.
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Nhận xét và đánh giá</h2>
+
+    <p>
+      GitHub Codespaces giúp sinh viên tạo môi trường
+      lập trình Node.js trực tiếp trên trình duyệt,
+      giảm nhu cầu cài đặt phần mềm trên từng máy.
+    </p>
+
+    <p>
+      API Hello Cloud đã trả về các thông tin
+      hệ thống gồm host, hệ điều hành, CPU,
+      RAM và thời gian.
+    </p>
+
+    <p>
+      So với việc cấu hình riêng trên máy cá nhân,
+      Codespaces giúp đồng bộ môi trường phát triển
+      nhờ devcontainer và hỗ trợ truy cập qua mạng.
+    </p>
+
+    <p>
+      GitHub Billing Usage cho phép theo dõi tài nguyên
+      và chi phí. Trong lần đo, số tiền thực tế
+      được ghi nhận là 0 USD sau giảm trừ.
+    </p>
+
+    <p>
+      Hạn chế là phụ thuộc vào Internet, nền tảng
+      nhà cung cấp và hạn mức miễn phí.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  Báo cáo LAB 1 - Điện toán đám mây - TDMU
+</footer>
+
+</body>
+</html>
