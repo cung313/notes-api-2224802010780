@@ -273,7 +273,329 @@
       nhà cung cấp và hạn mức miễn phí.
     </p>
   </section>
+<!-- ================= LAB 2 ================= -->
 
+<section id="lab2">
+  <h2>LAB 2 - Ao hoa, Container va CloudSim Plus</h2>
+
+  <p><b>Hoc phan:</b> Dien toan dam may - LING042</p>
+  <p><b>Sinh vien:</b> Nguyen Thanh Cung</p>
+  <p><b>MSSV:</b> 2224802010780</p>
+  <p><b>Ngay thuc hien:</b> 12/11/2026</p>
+
+  <h3>1. Muc tieu</h3>
+  <p>
+    Tim hieu su khac nhau giua may ao va container;
+    dong goi API bang Docker; kiem tra gioi han
+    CPU, RAM va mo phong phan bo tai nguyen
+    bang CloudSim Plus.
+  </p>
+
+  <h3>2. Cong nghe su dung</h3>
+  <p>
+    GitHub Codespaces, Docker, Node.js 22,
+    Express, GHCR, Java 25, Maven va
+    CloudSim Plus 9.0.0.
+  </p>
+
+  <h3>3. Ket qua thuc hanh Docker</h3>
+
+  <p>
+    API Hello Cloud duoc dong goi thanh Docker
+    image notes-api:1.0 bang Node.js 22 Alpine.
+  </p>
+
+  <p>
+    Hai container notes1 va notes2 deu chay
+    thanh cong va tra ve du lieu JSON.
+  </p>
+
+  <p>
+    Container notes2 duoc gioi han 0,5 CPU
+    va 128 MiB RAM. Gia tri nay da duoc
+    xac nhan bang docker inspect.
+  </p>
+
+  <p>
+    <b>Image:</b> ghcr.io/cung313/notes-api:1.0
+  </p>
+
+  <p>
+    <b>GitHub Packages:</b>
+    <a href="https://github.com/cung313?tab=packages">
+      Xem Docker package tren GitHub
+    </a>
+  </p>
+
+  <p>
+    <b>Luu y:</b> Can xac nhan image Public
+    va docker pull thanh cong khi khong dang nhap.
+  </p>
+
+  <h3>4. Bang do tai nguyen hai container</h3>
+
+  <div class="table-wrap">
+    <table>
+      <tr>
+        <th>Thong so</th>
+        <th>notes1</th>
+        <th>notes2</th>
+      </tr>
+      <tr>
+        <td>Cong truy cap</td>
+        <td>3000</td>
+        <td>3001</td>
+      </tr>
+      <tr>
+        <td>CPU dang su dung</td>
+        <td>0,00%</td>
+        <td>0,02%</td>
+      </tr>
+      <tr>
+        <td>RAM dang su dung</td>
+        <td>13,7 MiB</td>
+        <td>12,88 MiB</td>
+      </tr>
+      <tr>
+        <td>Gioi han RAM</td>
+        <td>7,756 GiB</td>
+        <td>128 MiB</td>
+      </tr>
+      <tr>
+        <td>Gioi han CPU rieng</td>
+        <td>Khong dat trong lenh run</td>
+        <td>0,5 CPU</td>
+      </tr>
+      <tr>
+        <td>Trang thai</td>
+        <td>Running</td>
+        <td>Running</td>
+      </tr>
+    </table>
+  </div>
+
+  <p>
+    Lenh docker inspect xac nhan:
+    NanoCpus = 500000000 va
+    MemoryBytes = 134217728.
+  </p>
+
+  <h3>5. So sanh Codespace va container</h3>
+
+  <div class="table-wrap">
+    <table>
+      <tr>
+        <th>Tieu chi</th>
+        <th>Codespace</th>
+        <th>Container notes2</th>
+      </tr>
+      <tr>
+        <td>Thoi gian khoi tao/thu nghiem</td>
+        <td>Khoang 3 phut</td>
+        <td>0,445 giay</td>
+      </tr>
+      <tr>
+        <td>Dung luong</td>
+        <td>
+          Filesystem 32 GB;
+          da dung 4 GB;
+          con 26 GB
+        </td>
+        <td>
+          Docker image:
+          251 MB disk usage,
+          63,3 MB content size
+        </td>
+      </tr>
+      <tr>
+        <td>Kernel Linux</td>
+        <td>6.8.0-1070-azure</td>
+        <td>6.8.0-1070-azure</td>
+      </tr>
+      <tr>
+        <td>Muc co lap</td>
+        <td>Moi truong ao hoa duoc quan ly</td>
+        <td>Namespaces va cgroups</td>
+      </tr>
+      <tr>
+        <td>CPU</td>
+        <td>2-core</td>
+        <td>Gioi han 0,5 CPU</td>
+      </tr>
+      <tr>
+        <td>RAM</td>
+        <td>API bao 7,8 GB</td>
+        <td>Gioi han 128 MiB</td>
+      </tr>
+    </table>
+  </div>
+
+  <p>
+    Chu thich: 3 phut la thoi gian khoi tao
+    Codespace; 0,445 giay la thoi gian
+    chay mot tien trinh Node.js ngan trong
+    container. Hai phep do khong hoan
+    toan tuong duong.
+  </p>
+
+  <p>
+    Dung luong filesystem khong phai
+    kich thuoc image may ao.
+  </p>
+
+  <h3>6. Ket qua mo phong CloudSim Plus</h3>
+
+  <p>
+    Phan mem: CloudSim Plus 9.0.0.
+    Mo phong su dung host 8 loi,
+    VM 4 loi va cloudlet 2 loi.
+  </p>
+
+  <div class="table-wrap">
+    <table>
+      <tr>
+        <th>Lan</th>
+        <th>Cau hinh</th>
+        <th>Cloudlet thanh cong</th>
+        <th>FinishTime lon nhat</th>
+        <th>Ket thuc mo phong</th>
+      </tr>
+
+      <tr>
+        <td>0</td>
+        <td>2 VM, 4 Cloudlet, TimeShared</td>
+        <td>4/4</td>
+        <td>20,1 giay</td>
+        <td>20,22 giay</td>
+      </tr>
+
+      <tr>
+        <td>1</td>
+        <td>4 VM, 4 Cloudlet, TimeShared</td>
+        <td>4/4; chi 2 VM duoc cap phat</td>
+        <td>45,6 giay</td>
+        <td>45,71 giay</td>
+      </tr>
+
+      <tr>
+        <td>2</td>
+        <td>2 VM, 8 Cloudlet, TimeShared</td>
+        <td>4/8</td>
+        <td>40,1 giay (*)</td>
+        <td>40,22 giay</td>
+      </tr>
+
+      <tr>
+        <td>3</td>
+        <td>2 VM, 4 Cloudlet, SpaceShared</td>
+        <td>4/4</td>
+        <td>20,1 giay</td>
+        <td>20,22 giay</td>
+      </tr>
+    </table>
+  </div>
+
+  <p>
+    (*) Lan 2 chi ghi nhan thoi diem
+    hoan thanh cuoi cung cua 4 cloudlet
+    thanh cong. Bon cloudlet con lai
+    chua hoan thanh khi mo phong dung.
+  </p>
+
+  <h3>7. Phan tich ket qua mo phong</h3>
+
+  <p>
+    <b>Lan 0:</b> Hai VM duoc cap phat
+    thanh cong. Bon cloudlet hoan thanh
+    tai giay 20,1.
+  </p>
+
+  <p>
+    <b>Lan 1:</b> Khi tang len 4 VM,
+    hai VM khong tim duoc host phu hop.
+    Broker thu cap phat lai nhieu lan,
+    gay cham tre khoi dau cloudlet.
+    FinishTime lon nhat la 45,6 giay.
+  </p>
+
+  <p>
+    <b>Lan 2:</b> Khi tang len 8 cloudlet,
+    he thong canh bao thieu RAM va bang
+    thong. Chi 4/8 cloudlet hoan thanh.
+  </p>
+
+  <p>
+    <b>Lan 3:</b> Doi sang SpaceShared,
+    bon cloudlet hoan thanh tai giay
+    20,1. Moi VM co 4 loi va moi
+    cloudlet can 2 loi, nen co the
+    cap phat dong thoi hai cloudlet.
+  </p>
+
+  <h3>8. Tra loi cau hoi phan bien</h3>
+
+  <h4>Cau 1. Vi sao API bao RAM host?</h4>
+  <p>
+    os.totalmem() co the tra ve bo nho
+    cua he dieu hanh host thay vi gioi
+    han cgroups. Docker gioi han RAM
+    cua notes2 o 128 MiB. Ung dung
+    can doc gioi han tai nguyen thuc
+    te de cau hinh heap va cache,
+    tranh bi ket thuc vi thieu bo nho.
+  </p>
+
+  <h4>Cau 2. TimeShared va SpaceShared?</h4>
+  <p>
+    TimeShared cho phep chia se tai
+    nguyen xu ly theo thoi gian.
+    SpaceShared chi cap tai nguyen
+    khi co du PE va buoc cac tac
+    vu khac cho.
+  </p>
+  <p>
+    Trong thi nghiem, ca hai deu
+    hoan thanh 4 cloudlet o giay 20,1
+    vi cau hinh du loi xu ly.
+    Voi goi gia re, nha cung cap
+    co the can nhac TimeShared
+    de chia se tai nguyen, nhung
+    can kiem soat hieu nang va SLA.
+  </p>
+
+  <h4>Cau 3. Loi ich va han che mo phong?</h4>
+  <p>
+    Mo phong giup thu nghiem tai
+    nguyen va chinh sach lap lich
+    truoc khi thue ha tang that.
+    Tuy nhien, ket qua phu thuoc
+    gia dinh ve CPU, RAM, mang,
+    I/O va workload, nen co the
+    sai khac voi moi truong thuc.
+  </p>
+<p>
+  <b>Ket qua GHCR:</b>
+  Docker image da duoc phat hanh cong khai
+  va kiem tra tai ve thanh cong
+  khi khong dang nhap.
+</p>
+  <h3>9. Ket luan</h3>
+  <p>
+    Docker giup dong goi va trien khai
+    API bang cac container dung chung
+    kernel va co the gioi han tai nguyen.
+  </p>
+  <p>
+    CloudSim Plus cho thay hieu nang
+    phu thuoc vao tai nguyen host,
+    so VM, so cloudlet va chinh sach
+    lap lich. Tang so VM khong tu
+    dong lam he thong nhanh hon.
+  </p>
+
+</section>
+
+<!-- ================= END LAB 2 ================= -->
 </main>
 
 <footer>

@@ -1,0 +1,8 @@
+node_modules
+.env
+.env.*
+.git
+.devcontainer
+docs
+evidence
+*.logdocker rm -f notes-verify
