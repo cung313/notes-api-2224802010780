@@ -1,23 +1,611 @@
 <!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Báo cáo Thực hành Điện toán Đám mây (LAB 1–4) | notes-api-2224802010780</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --surface: #ffffff;
+      --ink: #111827;
+      --muted: #4b5563;
+      --border: #e5e7eb;
+      --accent: #0f4c81;
+      --accent-soft: #eef5fc;
+      --code-bg: #f1f5f9;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+    header {
+      background: #0b2545;
+      color: #ffffff;
+      padding: 28px 20px 20px;
+      border-bottom: 4px solid #1d70b8;
+    }
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 1.75rem;
+    }
+    header p {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+    nav {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.15s ease;
+    }
+    nav a:hover, nav a.active {
+      background: #1d70b8;
+    }
+    main {
+      padding: 28px 0 60px;
+    }
+    .lab-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px;
+      margin-bottom: 28px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+    }
+    .lab-block h2 {
+      margin-top: 0;
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent-soft);
+      padding-bottom: 10px;
+      font-size: 1.45rem;
+    }
+    .lab-block h3 {
+      margin-top: 26px;
+      color: #1e293b;
+      font-size: 1.15rem;
+    }
+    .lab-block h4 {
+      margin-top: 18px;
+      margin-bottom: 8px;
+      color: #0f4c81;
+      font-size: 1rem;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.88em;
+      color: #0f172a;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 0.93rem;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: var(--accent-soft);
+      color: #0b2545;
+      font-weight: 600;
+    }
+    tr:nth-child(even) td {
+      background: #fafafa;
+    }
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin: 16px 0 24px;
+    }
+    .evidence-card {
+      margin: 0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+    }
+    .evidence-card a {
+      display: block;
+      background: #0f172a;
+    }
+    .evidence-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+    .evidence-card figcaption {
+      padding: 10px 12px;
+      font-size: 0.86rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .evidence-card figcaption strong {
+      color: var(--ink);
+      font-size: 0.9rem;
+    }
+    .qa-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 14px 0;
+    }
+    .qa-box h4 {
+      margin-top: 0;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+    @media (max-width: 640px) {
+      .lab-block { padding: 18px; }
+      .evidence-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Báo cáo Thực hành Điện toán Đám mây – notes-api-2224802010780</h1>
+      <p>Sinh viên: Nguyễn Thanh Cung (MSSV: 2224802010780) &bull; GitHub: cung313</p>
+      <nav>
+        <a href="#lab1">LAB 1</a>
+        <a href="#lab2">LAB 2</a>
+        <a href="#lab3">LAB 3</a>
+        <a href="#lab4" class="active">LAB 4</a>
+      </nav>
+    </div>
+  </header>
 
-<html lang="vi"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>LAB 3 | Lưu trữ phân tán — TDMU Notes API</title><meta content="Báo cáo LAB 3: MongoDB Atlas, Supabase Storage và đo hiệu quả chỉ mục." name="description"/><style>
-:root{--ink:#13243f;--muted:#61718c;--green:#08785e;--blue:#2857b8;--line:#e0e7f0;--bg:#f5f8fd}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:16px/1.72 system-ui,-apple-system,'Segoe UI',Arial,sans-serif;color:var(--ink);background:var(--bg)}a{color:var(--blue)}header{background:linear-gradient(120deg,#101d37,#143a62 65%,#087b78);color:white;padding:36px max(24px,calc((100vw - 1120px)/2)) 75px}nav{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:55px}nav a{color:#e6f2ff;text-decoration:none;font-size:14px}nav .brand{font-weight:800;font-size:19px;margin-right:auto}.eyebrow{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:#a9e8e1;font-weight:800}h1{font-size:clamp(32px,5vw,58px);line-height:1.15;max-width:880px;letter-spacing:-.04em;margin:18px 0}h2{font-size:29px;letter-spacing:-.025em;line-height:1.3}h3{font-size:19px}.lead{font-size:19px;color:#d6e5f4;max-width:780px}.meta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px;color:#d9e8f6}.meta span{border:1px solid #ffffff38;padding:7px 13px;border-radius:30px;font-size:13px}main{max-width:1140px;margin:-35px auto 60px;padding:0 22px}.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:29px;margin-bottom:22px;box-shadow:0 9px 24px #233e6810}.statgrid,.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.stat{background:#f4f9fe;border:1px solid #e0eaf5;border-radius:14px;padding:20px}.stat strong{font-size:38px;display:block;line-height:1.2;color:#075c57}.stat small{color:var(--muted)}.pill{display:inline-block;padding:5px 11px;border-radius:999px;background:#e2f7eb;color:#126543;font-size:12px;font-weight:800}.kicker{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--green);font-weight:800}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}figure{margin:18px 0}figure img{max-width:100%;width:100%;border-radius:12px;border:1px solid var(--line);background:white}figcaption{color:var(--muted);font-size:13px;margin-top:7px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:15px}th,td{padding:13px;border-bottom:1px solid var(--line);text-align:left}th{background:#edf4fb}pre{background:#11233e;color:#dbf4ff;padding:18px;border-radius:12px;overflow:auto;font-size:13px}li{margin:6px 0}section{scroll-margin-top:20px}.notice{padding:14px 18px;background:#fff8e7;border-left:4px solid #e5a32e;border-radius:8px}footer{text-align:center;color:var(--muted);padding:25px}.qa{border-top:1px solid var(--line);padding-top:10px;margin-top:15px}@media(max-width:760px){.statgrid,.cols,.grid2{grid-template-columns:1fr}header{padding:25px 22px 70px}main{padding:0 12px}.panel{padding:22px}nav{margin-bottom:32px}.stat strong{font-size:32px}}@media print{header{background:white;color:#13243f;padding:20px}.lead,.meta{color:#13243f}nav{display:none}main{margin:0}.panel{box-shadow:none;break-inside:avoid}body{background:white}}
-</style></head><body><header><nav><span class="brand">TDMU · CLOUD COMPUTING</span><a href="#tong-quan">Tổng quan</a><a href="#thuc-hanh">Thực hành</a><a href="#do-luong">Đo lường</a><a href="#so-sanh">Kiến trúc</a><a href="#kiem-thu-loi">HTTP 400/404</a><a href="#minh-chung">Minh chứng</a><a href="#phan-bien">Phản biện</a></nav><div class="eyebrow">Bài thực hành số 03 · Chương 3</div><h1>Lưu trữ phân tán: NoSQL &amp; Object Storage</h1><p class="lead">Xây dựng TDMU Notes API trên Node.js/Express, kết nối MongoDB Atlas và Supabase Storage, phân tích lợi ích của chỉ mục và cơ chế nhân bản dữ liệu.</p><div class="meta"><span>Sinh viên: Nguyễn Thanh Cung</span><span>MSSV: 2224802010780</span><span>Lớp: D22CNTT02</span><span>Ngày đo: 19/11/2026</span></div></header><main>
-<section class="panel" id="tong-quan"><span class="pill">ĐÃ KIỂM CHỨNG QUA ẢNH THỰC HÀNH</span><h2>01. Tổng quan kết quả</h2><p>API CRUD đã kiểm tra các thao tác tạo, đọc, sửa, xóa. Endpoint tải đính kèm trả HTTP 200 và lưu <code>attachmentUrl</code> vào tài liệu MongoDB. Script sinh dữ liệu xác nhận đã chèn 2.000 ghi chú mẫu.</p><div class="statgrid"><div class="stat"><small>Tài liệu quét toàn bộ</small><strong>2.001</strong><small>docsExamined</small></div><div class="stat"><small>Dùng chỉ mục tags</small><strong>571</strong><small>docsExamined</small></div><div class="stat"><small>Giảm khối lượng quét</small><strong>3,50×</strong><small>2.001 / 571</small></div></div><p><b>Môi trường thực tế:</b> MongoDB Atlas, database <code>test</code>, collection <code>notes</code>; Supabase Storage bucket <code>attachments</code>. Database <code>test</code> được giữ nguyên vì hệ thống đã hoạt động và có dữ liệu kiểm chứng.</p></section>
-<section class="panel" id="thuc-hanh"><span class="kicker">Phần A và B</span><h2>02. Kiến trúc &amp; thực hành</h2><div class="grid2"><div><h3>MongoDB Atlas — DBaaS</h3><p>Mongoose kết nối MongoDB trước khi Express mở cổng 3000. Model Note sử dụng <code>title</code>, <code>content</code>, <code>tags</code>, <code>attachmentUrl</code>, <code>owner</code> cùng timestamps.</p><p><b>CRUD:</b> POST /notes (201), GET /notes (200), PUT /notes/:id (200), DELETE /notes/:id (204). Các trường hợp HTTP 400 và 404 đã được xác nhận bằng ảnh Terminal ngày 19/11/2026.</p></div><div><h3>Supabase — Object Storage</h3><p>Tệp <code>note.txt</code> được gửi bằng multipart form-data tới <code>POST /notes/:id/attachment</code>; backend giới hạn dung lượng 2 MB và lưu đối tượng vào bucket <code>attachments</code>. MongoDB chỉ giữ URL đính kèm.</p><p><b>Upload:</b> HTTP 200 và phản hồi có trường <code>attachmentUrl</code>. URL công khai được tạo theo cấu hình bucket của bài thực hành.</p></div></div><div class="notice">Bảo mật: các khóa bí mật Supabase và mật khẩu MongoDB chỉ lưu phía máy chủ trong <code>.env</code>, không đưa vào GitHub Pages. Những thông tin xác thực từng xuất hiện trong ảnh cần được thu hồi/thay mới.</div></section>
-<section class="panel" id="do-luong"><span class="kicker">Phần C — đo thực nghiệm</span><h2>03. Đo hiệu quả chỉ mục</h2><p>Chạy <code>node scripts/seed.js</code> để chèn 2.000 tài liệu, tiếp theo <code>node scripts/explain.js</code> với bộ lọc <code>{ tags: 'docker' }</code>. Phép đo quét toàn bộ dùng gợi ý <code>$natural</code>; phép đo chỉ mục dùng index <code>tags: 1</code>.</p><div class="tablewrap"><table><thead><tr><th>Chỉ tiêu</th><th>Quét toàn bộ</th><th>Dùng chỉ mục</th></tr></thead><tbody><tr><td>docsExamined</td><td>2.001</td><td>571</td></tr><tr><td>nReturned</td><td>571</td><td>571</td></tr><tr><td>executionTimeMillis</td><td>1 ms</td><td>0 ms</td></tr></tbody></table></div><p><b>Phân tích:</b> Mức giảm là <b>2.001 / 571 = 3,50 lần</b>, tương đương giảm khoảng <b>71,5%</b> số tài liệu phải kiểm tra. Cả hai trả về 571 kết quả, nên đây là so sánh trên cùng truy vấn. Giá trị 0 ms là độ phân giải hiển thị của phép đo, không có nghĩa truy vấn không tốn thời gian; không suy diễn hiệu năng quy mô lớn chỉ từ một lần chạy.</p><figure><img alt="Màn hình chạy seed và explain ghi kết quả 2001 và 571 tài liệu" src="assets/lab3-explain.png"/><figcaption>Hình 1. Kết quả thực tế từ Terminal Codespaces: chèn 2.000 ghi chú, chạy explain và tỷ số 3,50 lần.</figcaption></figure></section>
-<section class="panel" id="so-sanh"><span class="kicker">Lý thuyết chương 3</span><h2>04. MongoDB Atlas &amp; HDFS</h2><figure><img alt="Sơ đồ so sánh MongoDB replica set với HDFS NameNode DataNode" src="assets/atlas-hdfs-diagram.png"/><figcaption>Hình 2. Sơ đồ nguyên lý: MongoDB nhân bản dữ liệu giữa các thành viên replica set; HDFS nhân bản block trên DataNode.</figcaption></figure><div class="tablewrap"><table><thead><tr><th>Tiêu chí</th><th>MongoDB replica set</th><th>HDFS</th></tr></thead><tbody><tr><td>Đơn vị nhân bản</td><td>Dữ liệu database/collections (qua đồng bộ dữ liệu và oplog)</td><td>Khối dữ liệu (block)</td></tr><tr><td>Điều phối</td><td>Primary và các secondary</td><td>NameNode quản lý metadata; DataNode giữ block</td></tr><tr><td>Mục tiêu</td><td>Khả dụng, phục hồi sau lỗi, tự động bầu primary</td><td>Độ bền dữ liệu, chịu lỗi khi hỏng DataNode</td></tr></tbody></table></div><p>Ảnh quan sát thực tế ngày 19/11/2026 cho thấy Cluster0 trên gói Free Tier tại Singapore (ap-southeast-1), gồm 1 primary (shard-00-02) và 2 secondary (shard-00-00, shard-00-01). Hình vẽ HDFS là minh họa khái niệm, không phải sơ đồ của cluster HDFS đã triển khai.</p><h3>Minh chứng nhân bản thực tế — Cluster0</h3><figure><img alt="Ảnh Atlas Cluster Overview cho thấy ba thành viên gồm primary và hai secondary ở Singapore" loading="lazy" src="assets/atlas-overview-real.png"/><figcaption>Hình 3. Atlas Cluster Overview: 1 Primary (shard-00-02), 2 Secondary (shard-00-00, shard-00-01), Singapore.</figcaption></figure><div class="grid2"><figure><img alt="Metrics MongoDB Primary shard 00 02" loading="lazy" src="assets/atlas-primary-02-metrics.png"/><figcaption>Metrics của Primary: Opcounters, Connections, Network.</figcaption></figure><figure><img alt="Metrics MongoDB Secondary shard 00 00" loading="lazy" src="assets/atlas-secondary-00-metrics.png"/><figcaption>Metrics của Secondary thứ nhất.</figcaption></figure><figure><img alt="Metrics MongoDB Secondary shard 00 01" loading="lazy" src="assets/atlas-secondary-01-metrics.png"/><figcaption>Metrics của Secondary thứ hai.</figcaption></figure></div><p><b>Giới hạn:</b> Đây là ảnh quan sát vai trò và hoạt động của từng nút; chưa có thử nghiệm failover, nên không kết luận rằng đã trực tiếp kiểm chứng việc bầu chọn primary khi mất nút.</p></section>
-<section class="panel" id="kiem-thu-loi"><span class="kicker">Kiểm thử thực tế — 19/11/2026</span>
+  <main class="container">
+    <section id="lab1" class="lab-block">
+      <h2>LAB 1 – Khởi tạo Notes API &amp; GitHub Repository</h2>
+      <p>Xây dựng dịch vụ RESTful Notes API bằng Node.js/Express và thiết lập quy trình quản lý mã nguồn trên GitHub (<code>notes-api-2224802010780</code>).</p>
+    </section>
 
+    <section id="lab2" class="lab-block">
+      <h2>LAB 2 – Container hóa Docker &amp; GHCR</h2>
+      <p>Đóng gói ứng dụng với Dockerfile tối ưu, kiểm thử container cục bộ và xuất bản image lên GitHub Container Registry (<code>ghcr.io/cung313/notes-api</code>).</p>
+    </section>
 
+    <section id="lab3" class="lab-block">
+      <h2>LAB 3 – Tích hợp MongoDB Atlas &amp; Supabase Storage</h2>
+      <p>Kết nối cơ sở dữ liệu đám mây MongoDB Atlas (tối ưu truy vấn với Index &amp; Explain) và lưu trữ tệp đính kèm trên Supabase Storage.</p>
+    </section>
 
-<pre><code>curl -i -X POST http://localhost:3000/notes \
- -H "Content-Type: application/json" \
- -d '{"content":"Test 400"}'
+<!-- LAB 4 -->
+<section id="lab4" class="lab-block">
 
-curl -i http://localhost:3000/notes/507f1f77bcf86cd799439011
+  <h2>LAB 4 – Bảo mật ứng dụng đám mây</h2>
 
-curl -i -X POST "http://localhost:3000/notes/$NOTE_ID/attachment"</code></pre><p>Hệ thống cũng trả <strong>201</strong> cho POST tạo ghi chú, <strong>200</strong> cho GET/PUT/upload và <strong>204</strong> cho DELETE theo các ảnh minh chứng trước.</p></section>
-<section class="panel" id="minh-chung"><span class="kicker">Ảnh thực tế</span><h2>06. Minh chứng</h2><div class="grid2"><figure><img alt="MongoDB Atlas tài liệu có attachmentUrl" src="assets/lab3-mongodb-document.png"/><figcaption>Hình 4. MongoDB Atlas Data Explorer hiển thị ghi chú có attachmentUrl.</figcaption></figure><figure><img alt="MongoDB Atlas 2001 tài liệu" src="assets/lab3-mongodb-seed.png"/><figcaption>Hình 5. Collection <code>test.notes</code> chứa 2.001 tài liệu.</figcaption></figure><figure><img alt="Nội dung tệp note.txt" src="assets/lab3-note-file.png"/><figcaption>Hình 6. Nội dung tệp thử nghiệm đính kèm.</figcaption></figure></div><p><b>Đối chiếu yêu cầu:</b> ảnh hiện có chứng minh upload qua API trả 200 và URL được lưu trong MongoDB; chưa có ảnh riêng chứng minh trình duyệt mở URL, hoặc ảnh màn hình bucket Supabase. Hai minh chứng này nên bổ sung nếu giảng viên yêu cầu.</p></section>
-<section class="panel" id="phan-bien"><span class="kicker">Câu hỏi phản biện</span><h2>07. Giải đáp và kết luận</h2><div class="qa"><h3>1. Nếu mở rộng lên 2 triệu tài liệu?</h3><p>Quét toàn bộ tăng tỷ lệ với số tài liệu. Index giảm tập tài liệu cần đọc khi điều kiện lọc đủ chọn lọc, nhưng mức giảm còn phụ thuộc phân bố thẻ, bộ nhớ đệm và kế hoạch truy vấn. Giới hạn thao tác/giây khiến việc tránh quét không cần thiết càng quan trọng; không thể suy ra chính xác thời gian ở 2 triệu tài liệu chỉ từ mẫu hiện tại.</p></div><div class="qa"><h3>2. Tại sao tệp lưu ở Supabase, chỉ URL nằm trong MongoDB?</h3><p>Object Storage phù hợp dữ liệu nhị phân, tăng trưởng dung lượng và phân phối tệp; MongoDB giữ metadata để tìm kiếm, cập nhật ghi chú nhanh và tránh tăng kích thước document. Tuy nhiên cần xử lý đồng bộ khi xóa ghi chú và xóa tệp để tránh object mồ côi.</p></div><div class="qa"><h3>3. Tại sao thường có 3 bản sao và khác nhau ở đâu?</h3><p>Ba bản sao/thành viên tăng khả năng chịu lỗi khi một nút không hoạt động. MongoDB replica set có các thành viên nhân bản dữ liệu và cơ chế bầu primary; HDFS nhân bản block lên DataNode do NameNode quản lý. Cùng mục tiêu tin cậy nhưng khác đơn vị nhân bản và cơ chế điều phối.</p></div><h3>Kết luận</h3><p>Bài thực hành chứng minh ứng dụng dùng phối hợp DBaaS, Object Storage và chỉ mục. Kết quả đo thực tế cho thấy số tài liệu quét giảm 3,50 lần cho truy vấn theo thẻ <code>docker</code>. Đã xác minh ba trường hợp lỗi HTTP 400/404 bằng ảnh Terminal. Việc mở trực tiếp attachmentUrl ở trình duyệt cần được xác nhận riêng nếu chưa chụp minh chứng.</p></section>
-<section class="panel"><h2>08. Mã nguồn &amp; tham khảo</h2><p><a href="https://github.com/cung313/notes-api-2224802010780">Repository TDMU Notes API</a> · <a href="https://www.mongodb.com/docs/manual/indexes/">MongoDB Indexes</a> · <a href="https://supabase.com/docs/guides/storage">Supabase Storage</a> · <a href="https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html">HDFS Architecture</a>.</p></section></main><footer>© 2026 · Nguyễn Thanh Cung · TDMU Notes API · LAB 3</footer></body></html>
+  <h3>1. Quản lý bí mật</h3>
+
+  <p>
+    Các thông tin xác thực <code>MONGODB_URI</code>,
+    <code>SUPABASE_URL</code>, <code>SUPABASE_SERVICE_ROLE_KEY</code>
+    và <code>JWT_SECRET</code> được quản lý bằng
+    <strong>GitHub Codespaces Secrets</strong>.
+  </p>
+
+  <p>
+    File <code>.env</code> không được đưa lên GitHub (được kiểm tra qua lịch sử commit
+    và loại trừ trong <code>.gitignore</code> / <code>.dockerignore</code>).
+    Repository <code>notes-api-2224802010780</code> được bật kiểm soát bí mật
+    (Secret Scanning, Push Protection) và Dependabot.
+  </p>
+
+  <div class="evidence-grid">
+    
+      <figure class="evidence-card">
+        <a href="assets/lab4-01-git-history-check.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-01-git-history-check.png" alt="Kiểm tra lịch sử commit Git" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Kiểm tra lịch sử commit Git</strong>
+          <span>Hình 1: Kiểm tra toàn bộ lịch sử commit Git bằng script Python – không phát hiện chuỗi bí mật (MongoDB URI, Supabase key, JWT, JWT_SECRET đều báo &quot;Chua phat hien&quot;).</span>
+        </figcaption>
+      </figure>
+
+      <figure class="evidence-card">
+        <a href="assets/lab4-02-env-secrets-ok.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-02-env-secrets-ok.png" alt="Xác nhận 4 biến môi trường Secrets" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Xác nhận 4 biến môi trường Secrets</strong>
+          <span>Hình 2: Kiểm tra 4 biến môi trường (MONGODB_URI, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, JWT_SECRET) đều hiển thị OK trong môi trường Codespaces.</span>
+        </figcaption>
+      </figure>
+  </div>
+
+  <h3>2. Xác thực và phân quyền</h3>
+
+  <p>
+    API được bổ sung xác thực người dùng bằng <strong>JWT</strong> (<code>jsonwebtoken</code>, hết hạn 1 giờ),
+    băm mật khẩu bằng <code>bcryptjs</code>, phân quyền truy cập ghi chú theo trường <code>owner</code>,
+    thiết lập security headers bằng <code>helmet</code>, chống NoSQL injection bằng
+    <code>mongoose.set('sanitizeFilter', true)</code> và giới hạn số lần đăng nhập sai bằng
+    <code>express-rate-limit</code> (tối đa 20 lần / 15 phút).
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Chức năng kiểm thử</th>
+        <th>Kết quả mong đợi</th>
+        <th>Kết quả thực tế</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>Đăng ký (sv1, sv2)</td>
+        <td>201 Created</td>
+        <td>201 Created (Đạt)</td>
+      </tr>
+      <tr>
+        <td>Email trùng</td>
+        <td>409 Conflict</td>
+        <td>409 Conflict (theo thiết kế route auth)</td>
+      </tr>
+      <tr>
+        <td>Đăng nhập đúng</td>
+        <td>200 OK và trả JWT</td>
+        <td>200 OK + token JWT (Đạt)</td>
+      </tr>
+      <tr>
+        <td>Thiếu token</td>
+        <td>401 Unauthorized</td>
+        <td>401 Unauthorized ({&quot;error&quot;:&quot;Thieu token&quot;}) (Đạt)</td>
+      </tr>
+      <tr>
+        <td>Token không hợp lệ</td>
+        <td>401 Unauthorized</td>
+        <td>401 Unauthorized (Đạt)</td>
+      </tr>
+      <tr>
+        <td>Người dùng khác đọc/sửa ghi chú (B -&gt; A)</td>
+        <td>404 Not Found</td>
+        <td>404 Not Found ({&quot;error&quot;:&quot;Khong tim thay ghi chu&quot;}) (Đạt)</td>
+      </tr>
+      <tr>
+        <td>Tấn công NoSQL Injection ($gt)</td>
+        <td>401 Unauthorized</td>
+        <td>401 Unauthorized (Đạt)</td>
+      </tr>
+      <tr>
+        <td>Request vượt rate limit (lần 21–25)</td>
+        <td>429 Too Many Requests</td>
+        <td>429 Too Many Requests (Đạt)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="evidence-grid">
+    
+      <figure class="evidence-card">
+        <a href="assets/lab4-03-register-sv1-201.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-03-register-sv1-201.png" alt="Đăng ký người dùng A (sv1@tdmu.edu.vn)" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Đăng ký người dùng A (sv1@tdmu.edu.vn)</strong>
+          <span>Hình 3: Đăng ký tài khoản sv1@tdmu.edu.vn trả về HTTP/1.1 201 Created kèm các security headers của Helmet và RateLimit-Limit: 20.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="evidence-card">
+        <a href="assets/lab4-04-register-sv2-201.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-04-register-sv2-201.png" alt="Đăng ký người dùng B (sv2@tdmu.edu.vn)" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Đăng ký người dùng B (sv2@tdmu.edu.vn)</strong>
+          <span>Hình 4: Đăng ký tài khoản thứ hai sv2@tdmu.edu.vn thành công với HTTP/1.1 201 Created để phục vụ kiểm thử phân quyền chéo.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="evidence-card">
+        <a href="assets/lab4-05-login-jwt.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-05-login-jwt.png" alt="Đăng nhập đúng &amp; cấp phát JWT" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Đăng nhập đúng &amp; cấp phát JWT</strong>
+          <span>Hình 5: Đăng nhập sv1@tdmu.edu.vn thành công và hệ thống trả về chuỗi JWT token hợp lệ.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="evidence-card">
+        <a href="assets/lab4-06-token-a-created.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-06-token-a-created.png" alt="Lưu biến TOKEN_A phục vụ kiểm thử" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Lưu biến TOKEN_A phục vụ kiểm thử</strong>
+          <span>Hình 6: Trích xuất JWT từ response đăng nhập lưu vào biến TOKEN_A và xác nhận &quot;Da tao TOKEN_A thanh cong&quot;.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="evidence-card">
+        <a href="assets/lab4-07-no-token-401.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-07-no-token-401.png" alt="Truy cập /notes khi thiếu token" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Truy cập /notes khi thiếu token</strong>
+          <span>Hình 7: Gửi request GET /notes không có Authorization header bị middleware auth từ chối với HTTP/1.1 401 Unauthorized.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="evidence-card">
+        <a href="assets/lab4-08-valid-token-200.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-08-valid-token-200.png" alt="Truy cập /notes với JWT hợp lệ" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Truy cập /notes với JWT hợp lệ</strong>
+          <span>Hình 8: Xác nhận lỗi {&quot;error&quot;:&quot;Thieu token&quot;} ở request thiếu token và trả về HTTP/1.1 200 OK khi gửi kèm Bearer $TOKEN_A.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="evidence-card">
+        <a href="assets/lab4-09-create-note-a.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-09-create-note-a.png" alt="Sinh viên A tạo ghi chú riêng" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Sinh viên A tạo ghi chú riêng</strong>
+          <span>Hình 9: Sinh viên A sử dụng TOKEN_A gọi POST /notes tạo ghi chú &quot;Ghi chu cua sinh vien A&quot; thành công và lưu NOTE_A_ID.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="evidence-card">
+        <a href="assets/lab4-10-ownership-get-404.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-10-ownership-get-404.png" alt="Kiểm thử phân quyền (GET) – Người dùng B đọc ghi chú của A" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Kiểm thử phân quyền (GET) – Người dùng B đọc ghi chú của A</strong>
+          <span>Hình 10: Người dùng B dùng TOKEN_B truy vấn GET /notes/$NOTE_A_ID của người dùng A bị chặn và trả về HTTP/1.1 404 Not Found.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="evidence-card">
+        <a href="assets/lab4-11-ownership-put-404.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-11-ownership-put-404.png" alt="Kiểm thử phân quyền (PUT) – Người dùng B sửa ghi chú của A" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Kiểm thử phân quyền (PUT) – Người dùng B sửa ghi chú của A</strong>
+          <span>Hình 11: Người dùng B dùng TOKEN_B gọi PUT /notes/$NOTE_A_ID cố tình chỉnh sửa ghi chú của A bị từ chối với HTTP/1.1 404 Not Found ({&quot;error&quot;:&quot;Khong tim thay ghi chu&quot;}).</span>
+        </figcaption>
+      </figure>
+
+      <figure class="evidence-card">
+        <a href="assets/lab4-12-nosql-injection-401.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-12-nosql-injection-401.png" alt="Kiểm thử chống NoSQL Injection" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Kiểm thử chống NoSQL Injection</strong>
+          <span>Hình 12: Gửi payload NoSQL Injection {&quot;email&quot;:{&quot;$gt&quot;:&quot;&quot;},&quot;password&quot;:&quot;x&quot;} tới POST /auth/login bị từ chối với HTTP/1.1 401 Unauthorized.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="evidence-card">
+        <a href="assets/lab4-13-rate-limit-part1.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-13-rate-limit-part1.png" alt="Kiểm thử Rate Limit (lần 01–12)" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Kiểm thử Rate Limit (lần 01–12)</strong>
+          <span>Hình 13: Chạy vòng lặp 25 lần đăng nhập sai mật khẩu liên tiếp; các lần 01 đến 12 trả về mã HTTP 401.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="evidence-card">
+        <a href="assets/lab4-14-rate-limit-429.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-14-rate-limit-429.png" alt="Kiểm thử Rate Limit – Chặn từ lần thứ 21 (429)" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Kiểm thử Rate Limit – Chặn từ lần thứ 21 (429)</strong>
+          <span>Hình 14: Từ request thứ 21 đến 25, middleware express-rate-limit kích hoạt giới hạn và trả về HTTP 429 Too Many Requests.</span>
+        </figcaption>
+      </figure>
+  </div>
+
+  <h3>3. Kết quả quét lỗ hổng (Mục 19.6 – 20)</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Kích thước</th>
+        <th>HIGH</th>
+        <th>CRITICAL</th>
+        <th>Chi tiết theo Target (Trivy)</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td><code>notes-api:alpine</code></td>
+        <td><strong>289MB</strong></td>
+        <td><strong>10</strong></td>
+        <td><strong>0</strong></td>
+        <td>OS Alpine: 0 HIGH, 0 CRITICAL | Node.js (package-lock.json): 10 HIGH, 0 CRITICAL</td>
+      </tr>
+      <tr>
+        <td><code>notes-api:full</code></td>
+        <td><strong>1.67GB</strong></td>
+        <td><strong>480</strong></td>
+        <td><strong>20</strong></td>
+        <td>OS Debian 12.15: 470 HIGH, 20 CRITICAL | Node.js (package-lock.json): 10 HIGH, 0 CRITICAL</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>Phân tích kết quả Trivy (Mục 19.7)</h4>
+  <ul>
+    <li><strong>Kích thước &amp; bề mặt tấn công tầng OS:</strong> Image <code>notes-api:alpine</code> có kích thước <strong>289MB</strong> (giảm ~82,7% so với <strong>1.67GB</strong> của <code>notes-api:full</code> chạy Debian 12.15). Nhờ hệ điều hành tối giản, tầng OS của Alpine không ghi nhận lỗ hổng HIGH/CRITICAL nào, trong khi tầng OS Debian 12.15 phát sinh tới <strong>470 HIGH</strong> và <strong>20 CRITICAL</strong>.</li>
+    <li><strong>Lỗ hổng tầng thư viện Node.js:</strong> Cả hai image đều ghi nhận <strong>10 HIGH, 0 CRITICAL</strong> từ các dependency trong <code>package-lock.json</code> (ví dụ <code>sigstore</code> CVE-2026-48815). Điều này chứng minh image nhỏ hơn không đồng nghĩa an toàn tuyệt đối vì lỗ hổng ứng dụng vẫn tồn tại độc lập với base OS.</li>
+    <li><strong>Tương thích &amp; đánh giá tổng thể:</strong> Alpine dùng <code>musl libc</code> khác với <code>glibc</code> trên Debian nên có thể phát sinh khác biệt tương thích với một số gói native; cần kết hợp Trivy, <code>npm audit</code> và cập nhật dependency định kỳ.</li>
+  </ul>
+
+  <h4>Kiểm tra Dependabot Alerts trên GitHub (Bước 20)</h4>
+  <p>
+    Tại tab <strong>Security and quality &rarr; Dependabot &rarr; Vulnerabilities</strong> của repository
+    <code>cung313/notes-api-2224802010780</code>: ghi nhận <strong>Open: 0</strong>,
+    <strong>Closed: 0</strong> (<em>"No open alerts"</em> — chưa phát hiện cảnh báo lỗ hổng dependency tại thời điểm kiểm tra).
+  </p>
+
+  <div class="evidence-grid">
+    
+      <figure class="evidence-card">
+        <a href="assets/lab4-15-trivy-scan-results.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-15-trivy-scan-results.png" alt="Kết quả quét Trivy &amp; kích thước Docker image" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Kết quả quét Trivy &amp; kích thước Docker image</strong>
+          <span>Hình 15: So sánh kích thước và lỗ hổng qua Trivy: notes-api:alpine (289MB; Total: 10, HIGH: 10, CRITICAL: 0) và notes-api:full (1.67GB; OS Debian 12.15: 470 HIGH, 20 CRITICAL; Node.js: 10 HIGH, 0 CRITICAL).</span>
+        </figcaption>
+      </figure>
+
+      <figure class="evidence-card">
+        <a href="assets/lab4-16-dependabot-alerts.png" target="_blank" rel="noopener">
+          <img src="assets/lab4-16-dependabot-alerts.png" alt="Kiểm tra Dependabot Alerts trên GitHub" loading="lazy" />
+        </a>
+        <figcaption>
+          <strong>Kiểm tra Dependabot Alerts trên GitHub</strong>
+          <span>Hình 16: Trang Dependabot alerts của repository cung313/notes-api-2224802010780 ghi nhận Open: 0, Closed: 0 (&quot;No open alerts&quot;).</span>
+        </figcaption>
+      </figure>
+  </div>
+
+  <h3>4. Phân tích rủi ro Network Access 0.0.0.0/0</h3>
+
+  <p>
+    Cấu hình <code>0.0.0.0/0</code> trên MongoDB Atlas cho phép kết nối từ mọi địa chỉ IPv4 nhằm hỗ trợ môi trường
+    GitHub Codespaces có IP động. Để bù trừ rủi ro thử dò mật khẩu từ Internet, nhóm áp dụng tài khoản
+    <code>notes_app</code> với quyền tối thiểu <code>readWrite</code> trên riêng database <code>notes</code>,
+    mật khẩu mạnh, kết nối TLS bắt buộc và lưu thông tin xác thực trong GitHub Codespaces Secrets.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nội dung</th>
+        <th>Phân tích</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td><strong>Quyết định cấu hình</strong></td>
+        <td>Cho phép tất cả IP IPv4 (0.0.0.0/0) truy cập ở tầng Network Access trên MongoDB Atlas</td>
+      </tr>
+      <tr>
+        <td><strong>Rủi ro</strong></td>
+        <td>Kẻ tấn công từ bất kỳ IP nào trên Internet đều có thể gửi yêu cầu kết nối và dò mật khẩu MongoDB</td>
+      </tr>
+      <tr>
+        <td><strong>Quyền Database User</strong></td>
+        <td>Tài khoản notes_app chỉ được cấp quyền tối thiểu readWrite trên riêng database notes</td>
+      </tr>
+      <tr>
+        <td><strong>Mật khẩu</strong></td>
+        <td>Sử dụng mật khẩu ngẫu nhiên, đủ độ dài và độ phức tạp cao</td>
+      </tr>
+      <tr>
+        <td><strong>TLS</strong></td>
+        <td>Mã hóa đường truyền dữ liệu (TLS/SSL) khi kết nối tới cụm MongoDB Atlas</td>
+      </tr>
+      <tr>
+        <td><strong>Quản lý bí mật</strong></td>
+        <td>MONGODB_URI, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY và JWT_SECRET lưu trong GitHub Codespaces Secrets, không đưa lên Git</td>
+      </tr>
+      <tr>
+        <td><strong>Giới hạn còn lại</strong></td>
+        <td>Nếu thông tin xác thực bị lộ, kẻ tấn công vẫn có thể tìm cách kết nối trực tiếp từ các IP khác nhau</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>5. Câu hỏi phản biện</h3>
+  
+  <div class="qa-box">
+    <h4>Câu 1. Nếu JWT bị lộ thì hệ thống có thể làm gì trong một giờ?</h4>
+    <p>JWT trong LAB 4 có thời hạn 1 giờ (expiresIn: &quot;1h&quot;) và được ký/xác minh bằng JWT_SECRET.</p>
+    <p>Vì token được thiết kế theo cơ chế stateless, máy chủ không lưu danh sách phiên đăng nhập của từng người dùng. Do đó nếu JWT bị lộ, kẻ tấn công có thể sử dụng token đó để gọi API hợp lệ cho đến khi hết hạn 1 giờ, trừ khi hệ thống bổ sung cơ chế thu hồi (token blacklist/revocation).</p>
+    <p>Giải pháp chuẩn trong thực tế là dùng Access Token thời hạn ngắn (ví dụ 5–15 phút) kết hợp Refresh Token được quản lý trạng thái phía máy chủ (database hoặc Redis), cho phép thu hồi hoặc xoay vòng (rotation) ngay khi phát hiện bất thường. Đổi lại, cách này làm tăng chi phí lưu trữ và độ phức tạp hệ thống.</p>
+    <p>Trong tình huống khẩn cấp, quản trị viên có thể thay đổi biến môi trường JWT_SECRET để vô hiệu hóa toàn bộ JWT cũ ngay lập tức, nhưng thao tác này sẽ buộc tất cả người dùng hiện tại phải đăng nhập lại.</p>
+  </div>
+  <div class="qa-box">
+    <h4>Câu 2. Vì sao Alpine thường có ít lỗ hổng hơn? Ít lỗ hổng có đồng nghĩa an toàn hơn?</h4>
+    <p>Alpine Linux là bản phân phối tối giản (dùng musl libc và BusyBox), chỉ đóng gói các thành phần tối thiểu để chạy Node.js nên kích thước chỉ 289MB so với 1.67GB của Debian 12.15 (notes-api:full). Vì ít gói hệ thống đi kèm hơn, bề mặt tấn công tầng OS giảm mạnh (0 HIGH/CRITICAL trên OS Alpine so với 470 HIGH và 20 CRITICAL trên OS Debian 12.15).</p>
+    <p>Tuy nhiên, ít lỗ hổng được báo cáo không đồng nghĩa an toàn tuyệt đối. Bằng chứng từ kết quả Trivy cho thấy cả hai image đều vẫn tồn tại 10 lỗ hổng HIGH đến từ các thư viện Node.js trong package-lock.json (như sigstore CVE-2026-48815). Ngoài ra, chỉ một lỗ hổng nghiêm trọng trong thư viện cốt lõi cũng đủ gây rủi ro lớn, kết quả quét còn phụ thuộc vào thời điểm cập nhật CSDL lỗ hổng, và sự khác biệt giữa musl libc (Alpine) với glibc (Debian) có thể gây vấn đề tương thích với một số package native.</p>
+    <p>Do đó cần kết hợp Trivy, npm audit, Dependabot và cập nhật dependency định kỳ để đánh giá bảo mật toàn diện.</p>
+  </div>
+  <div class="qa-box">
+    <h4>Câu 3. Theo mô hình trách nhiệm chia sẻ, phần nào thuộc MongoDB/Supabase và phần nào thuộc nhóm phát triển?</h4>
+    <p>Nhà cung cấp dịch vụ đám mây (MongoDB Atlas, Supabase) chịu trách nhiệm bảo vệ hạ tầng vật lý, máy chủ, hệ thống ảo hóa, mạng nội bộ nền tảng, phần mềm dịch vụ được quản lý và các bản vá vận hành thuộc phạm vi của họ.</p>
+    <p>Nhóm phát triển chịu trách nhiệm bảo vệ mã nguồn, quản lý bí mật (Secrets/API keys), tài khoản database và nguyên tắc quyền tối thiểu, cấu hình xác thực JWT &amp; mã hóa mật khẩu, kiểm tra phân quyền truy cập dữ liệu theo chủ sở hữu, cấu hình Network Access, bảo mật Docker image và cập nhật thư viện ứng dụng.</p>
+    <p>Cụ thể trong LAB 4: MongoDB Atlas vận hành cụm cơ sở dữ liệu và cung cấp kết nối TLS, còn nhóm phải giới hạn quyền user notes_app (readWrite trên DB notes), bảo vệ MONGODB_URI và lọc truy vấn theo trường owner. Supabase vận hành dịch vụ Storage, nhưng nhóm phải chọn chế độ Public/Private phù hợp, bảo vệ SUPABASE_SERVICE_ROLE_KEY và kiểm soát quyền upload phía backend.</p>
+  </div>
+
+  <h3>6. Kết luận</h3>
+
+  <p>
+    Ứng dụng đã được bổ sung xác thực JWT, mã hóa mật khẩu bằng <code>bcryptjs</code>,
+    phân quyền theo chủ sở hữu (<code>owner</code>), bảo vệ HTTP headers với <code>helmet</code>,
+    lọc truy vấn với <code>sanitizeFilter</code> và giới hạn số lần đăng nhập bằng <code>express-rate-limit</code>.
+    Các công cụ <code>npm audit</code>, Trivy (so sánh Alpine 289MB và Debian 1.67GB) và GitHub Dependabot
+    được sử dụng để kiểm tra và đánh giá toàn diện lỗ hổng bảo mật.
+  </p>
+
+  <h3>7. Tài liệu tham khảo</h3>
+  <ol>
+    <li>GitHub Codespaces – Managing Secrets for your codespaces.</li>
+    <li>GitHub Docs – Security and Analysis Settings (Secret Scanning, Push Protection, Dependabot).</li>
+    <li>Express.js – Security Best Practices in Production.</li>
+    <li>JSON Web Token – <code>node-jsonwebtoken</code> Documentation.</li>
+    <li>Aqua Security Trivy – Official Container Vulnerability Scanner Documentation.</li>
+  </ol>
+
+</section>
+<!-- END LAB 4 -->
+  </main>
+
+  <footer>
+    Báo cáo thực hành Điện toán đám mây &bull; Nguyễn Thanh Cung (2224802010780) &bull; 26/11/2026
+  </footer>
+</body>
+</html>

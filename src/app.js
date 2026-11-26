@@ -1,15 +1,43 @@
 const express = require('express');
 const os = require('os');
-const notesRouter = require('./routes/notes');
+const mongoose = require('mongoose');
+const helmet = require('helmet');
+const { rateLimit } = require('express-rate-limit');
+
+mongoose.set('sanitizeFilter', true);
 
 const app = express();
 
+const notesRouter = require('./routes/notes');
+const authRouter = require('./routes/auth');
+
+// Codespaces va Vercel nam sau proxy
+app.set('trust proxy', 1);
+
+// HTTP security headers
+app.use(helmet());
+
+// Gioi han kich thuoc JSON
 app.use(express.json({ limit: '100kb' }));
 
-// LAB 1 - API Hello Cloud
+// Gioi han 20 requests trong 15 phut
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    error: 'Qua nhieu yeu cau, vui long thu lai sau'
+  }
+});
+
+// Dang ky va dang nhap
+app.use('/auth', authLimiter, authRouter);
+
+// API Hello Cloud tu LAB 1
 app.get('/', (req, res) => {
   res.json({
-    message: 'Xin chào từ đám mây!',
+    message: 'Xin chao tu dam may!',
     host: os.hostname(),
     platform: `${os.type()} ${os.release()}`,
     cpus: os.cpus().length,
@@ -21,12 +49,22 @@ app.get('/', (req, res) => {
   });
 });
 
-// LAB 3 - API CRUD ghi chú
+// API Notes co JWT
 app.use('/notes', notesRouter);
 
-// Xu ly loi API
+// Middleware xu ly loi
 app.use((err, req, res, next) => {
-  console.error('API Error:', err);
+  console.error('API Error:', err.message);
+
+  if (res.headersSent) {
+    return next(err);
+  }
+
+  if (err.code === 11000) {
+    return res.status(409).json({
+      error: 'Du lieu da ton tai'
+    });
+  }
 
   const clientError =
     ['ValidationError', 'CastError', 'MulterError']
@@ -37,7 +75,7 @@ app.use((err, req, res, next) => {
   res.status(clientError ? 400 : 500).json({
     error: clientError
       ? err.message
-      : 'Lỗi máy chủ, vui lòng thử lại'
+      : 'Loi may chu, vui long thu lai'
   });
 });
 
